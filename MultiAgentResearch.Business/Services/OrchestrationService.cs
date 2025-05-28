@@ -5,6 +5,7 @@ using Microsoft.SemanticKernel.Agents.Orchestration;
 using Microsoft.SemanticKernel.Agents.Orchestration.GroupChat;
 using Microsoft.SemanticKernel.Agents.Runtime.InProcess;
 using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 using MultiAgentResearch.Plugins;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,12 @@ namespace MultiAgentResearch.Business.Services
                     Consider suggestions when refining an idea.
                     """,
                     Kernel = kernel,
+                    Arguments = new KernelArguments(
+                    new OpenAIPromptExecutionSettings
+                    {
+                        FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
+                        Temperature = 0,
+                    }),
                 };
             ChatCompletionAgent editor =
                 new ChatCompletionAgent
@@ -64,6 +71,12 @@ namespace MultiAgentResearch.Business.Services
                         If not, provide insight on how to refine suggested copy without example.
                         """,
                     Kernel = kernel,
+                    Arguments = new KernelArguments(
+                    new OpenAIPromptExecutionSettings
+                    {
+                        FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
+                        Temperature = 0,
+                    }),
                 };
 
             // Define the orchestration
