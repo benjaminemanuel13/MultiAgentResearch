@@ -1,0 +1,269 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MultiAgentResearch.Business\MultiAgentResearch.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Azure.AI.Agents.Persistent">
+      <HintPath>..\Assemblies\Azure.AI.Agents.Persistent.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.AI.OpenAI">
+      <HintPath>..\Assemblies\Azure.AI.OpenAI.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Core">
+      <HintPath>..\Assemblies\Azure.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Identity">
+      <HintPath>..\Assemblies\Azure.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="Humanizer">
+      <HintPath>..\Assemblies\Humanizer.dll</HintPath>
+    </Reference>
+    <Reference Include="JmePath.Net.Parser">
+      <HintPath>..\Assemblies\JmePath.Net.Parser.dll</HintPath>
+    </Reference>
+    <Reference Include="JmesPath.Net">
+      <HintPath>..\Assemblies\JmesPath.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="jmespath.net.interop">
+      <HintPath>..\Assemblies\jmespath.net.interop.dll</HintPath>
+    </Reference>
+    <Reference Include="Json.More">
+      <HintPath>..\Assemblies\Json.More.dll</HintPath>
+    </Reference>
+    <Reference Include="JsonPointer.Net">
+      <HintPath>..\Assemblies\JsonPointer.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="JsonSchema.Net">
+      <HintPath>..\Assemblies\JsonSchema.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="JsonSchema.Net.Generation">
+      <HintPath>..\Assemblies\JsonSchema.Net.Generation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces">
+      <HintPath>..\Assemblies\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode">
+      <HintPath>..\Assemblies\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.AI">
+      <HintPath>..\Assemblies\Microsoft.Extensions.AI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.AI.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.Extensions.AI.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.AI.OpenAI">
+      <HintPath>..\Assemblies\Microsoft.Extensions.AI.OpenAI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.CommandLine">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Configuration.CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.EnvironmentVariables">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Configuration.EnvironmentVariables.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Json">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Configuration.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.UserSecrets">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Configuration.UserSecrets.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection">
+      <HintPath>..\Assemblies\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Diagnostics">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Diagnostics.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Diagnostics.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Physical">
+      <HintPath>..\Assemblies\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileSystemGlobbing">
+      <HintPath>..\Assemblies\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Configuration">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Logging.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Console">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Logging.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Debug">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Logging.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.EventLog">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Logging.EventLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.EventSource">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Logging.EventSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options.ConfigurationExtensions">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Options.ConfigurationExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives">
+      <HintPath>..\Assemblies\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.VectorData.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.Extensions.VectorData.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client">
+      <HintPath>..\Assemblies\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client.Extensions.Msal">
+      <HintPath>..\Assemblies\Microsoft.Identity.Client.Extensions.Msal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Agents.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Agents.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Agents.AzureAI">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Agents.AzureAI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Agents.Core">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Agents.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Agents.OpenAI">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Agents.OpenAI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Agents.Orchestration">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Agents.Orchestration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Agents.Runtime.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Agents.Runtime.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Agents.Runtime.Core">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Agents.Runtime.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Agents.Runtime.InProcess">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Agents.Runtime.InProcess.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Connectors.AzureOpenAI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Connectors.OpenAI">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Connectors.OpenAI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Core">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Process.Abstractions">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Process.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Process.Core">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Process.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SemanticKernel.Process.LocalRuntime">
+      <HintPath>..\Assemblies\Microsoft.SemanticKernel.Process.LocalRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Threading">
+      <HintPath>..\Assemblies\Microsoft.VisualStudio.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Validation">
+      <HintPath>..\Assemblies\Microsoft.VisualStudio.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Assemblies\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenAI">
+      <HintPath>..\Assemblies\OpenAI.dll</HintPath>
+    </Reference>
+    <Reference Include="PuppeteerSharp">
+      <HintPath>..\Assemblies\PuppeteerSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Springcomp.GPLEX.Runtime">
+      <HintPath>..\Assemblies\Springcomp.GPLEX.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Springcomp.GPPG.Runtime">
+      <HintPath>..\Assemblies\Springcomp.GPPG.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ClientModel">
+      <HintPath>..\Assemblies\System.ClientModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.EventLog">
+      <HintPath>..\Assemblies\System.Diagnostics.EventLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Async">
+      <HintPath>..\Assemblies\System.Linq.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory.Data">
+      <HintPath>..\Assemblies\System.Memory.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Tensors">
+      <HintPath>..\Assemblies\System.Numerics.Tensors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.ProtectedData">
+      <HintPath>..\Assemblies\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    </Reference>
+    <Reference Include="Temp.Additions">
+      <HintPath>..\Assemblies\Temp.Additions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.abstractions">
+      <HintPath>..\Assemblies\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.assert">
+      <HintPath>..\Assemblies\xunit.assert.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.core">
+      <HintPath>..\Assemblies\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.dotnet">
+      <HintPath>..\Assemblies\xunit.execution.dotnet.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet">
+      <HintPath>..\Assemblies\YamlDotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

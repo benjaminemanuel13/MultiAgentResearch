@@ -1,0 +1,2040 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.SemanticKernel.Process.LocalRuntime</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.SemanticKernel.Process.Internal.JMESPathConditionEvaluator.EvaluateToString(System.Object,System.String)">
+            <summary>
+            Evaluates a JMESPath expression on a state object and returns the result as a string.
+            </summary>
+            <param name="data">The state object to evaluate against</param>
+            <param name="jmesPathExpression">The JMESPath expression</param>
+            <returns>The string result, or null if the result is null or cannot be converted to a string</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Process.Internal.ProcessStateMetadataFactory.KernelProcessToProcessStateMetadata(Microsoft.SemanticKernel.KernelProcess)">
+            <summary>
+            Captures Kernel Process State into <see cref="T:Microsoft.SemanticKernel.Process.Models.KernelProcessStateMetadata"/>
+            </summary>
+            <returns><see cref="T:Microsoft.SemanticKernel.Process.Models.KernelProcessStateMetadata"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Process.Internal.ProcessStateMetadataFactory.StepInfoToProcessStateMetadata(Microsoft.SemanticKernel.KernelProcessStepInfo)">
+            <summary>
+            Captures Kernel Process Step State into <see cref="T:Microsoft.SemanticKernel.Process.Models.KernelProcessStateMetadata"/>
+            </summary>
+            <returns><see cref="T:Microsoft.SemanticKernel.Process.Models.KernelProcessStateMetadata"/></returns>
+        </member>
+        <member name="F:Microsoft.SemanticKernel.Process.Internal.KernelProcessStepExtensions.s_genericStepType">
+            <summary>
+            The generic state type for a process step.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Process.Internal.KernelProcessStepExtensions.TryGetSubtypeOfStatefulStep(System.Type,System.Type@)">
+            <summary>
+            Attempts to find an instance of <![CDATA['KernelProcessStep<>']]> within the provided types hierarchy.
+            </summary>
+            <param name="type">The type to examine.</param>
+            <param name="genericStateType">The matching type if found, otherwise null.</param>
+            <returns>True if a match is found, false otherwise.</returns>
+        </member>
+        <member name="F:Microsoft.SemanticKernel.Process.Internal.ProcessConstants.GlobalErrorEventId">
+            <summary>
+            Event raised internally for errors not handled at the step level.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SemanticKernel.Process.Internal.ProcessConstants.EndStepName">
+            <summary>
+            Qualified name of the end step.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SemanticKernel.Process.Internal.ProcessConstants.EventIdSeparator">
+            <summary>
+            Separator for qualified event ids.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SemanticKernel.Process.Internal.ProcessConstants.InternalStepsVersion">
+            <summary>
+            Version for state of internal steps
+            </summary>
+        </member>
+        <member name="F:Microsoft.SemanticKernel.Process.Internal.ProcessConstants.MapEventId">
+            <summary>
+            EventId used internally as the input event for <see cref="P:Microsoft.SemanticKernel.KernelProcessMap.Operation"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Process.Internal.ProcessConstants.SupportedComponents">
+            <summary>
+            Enum containing the name of internal components.
+            Used for serialization purposes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Process.Internal.StepExtensions.FindInputChannels(Microsoft.SemanticKernel.IKernelProcessMessageChannel,System.Collections.Generic.Dictionary{System.String,Microsoft.SemanticKernel.KernelFunction},Microsoft.Extensions.Logging.ILogger,Microsoft.SemanticKernel.IExternalKernelProcessMessageChannel,Microsoft.SemanticKernel.Agents.AgentDefinition)">
+            <summary>
+            Examines the KernelFunction for the step and creates a dictionary of input channels.
+            Some types such as KernelProcessStepContext are special and need to be injected into
+            the function parameter. Those objects are instantiated at this point.
+            </summary>
+            <param name="channel">The source channel to evaluate</param>
+            <param name="functions">A dictionary of KernelFunction instances.</param>
+            <param name="logger">An instance of <see cref="T:Microsoft.Extensions.Logging.ILogger"/>.</param>
+            <param name="externalMessageChannel">An instance of <see cref="T:Microsoft.SemanticKernel.IExternalKernelProcessMessageChannel"/></param>
+            <param name="agentDefinition">An instance of <see cref="T:Microsoft.SemanticKernel.Agents.AgentDefinition"/></param>
+            <returns><see cref="T:System.Collections.Generic.Dictionary`2"/></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Process.Internal.ProcessAgentFactory">
+            <summary>
+            A factory for creating agent threads.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Process.Internal.ProcessAgentFactory.CreateAgentFactory(Microsoft.SemanticKernel.Agents.AgentDefinition)">
+            <summary>
+            Processes the agent definition and creates the correct derived type of <see cref="T:Microsoft.SemanticKernel.Agents.AgentFactory"/>."/>
+            </summary>
+            <param name="agentDefinition">An instance of <see cref="T:Microsoft.SemanticKernel.Agents.AgentDefinition"/>.</param>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Process.Internal.AgentThreadFactory">
+            <summary>
+            A factory for creating agent threads.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Process.Internal.AgentThreadFactory.CreateAgentThreadAsync(Microsoft.SemanticKernel.KernelProcessAgentThread,Microsoft.SemanticKernel.Kernel)">
+            <summary>
+            Processes the thread definition and creates an underlying thread if needed.
+            </summary>
+            <param name="threadDefinition"></param>
+            <param name="kernel"></param>
+            <returns></returns>
+            <exception cref="T:Microsoft.SemanticKernel.KernelException"></exception>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Process.Internal.KernelProcessProxyMessageFactory">
+            <summary>
+            Factory that helps create <see cref="T:Microsoft.SemanticKernel.KernelProcessProxyMessage"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Process.Internal.KernelProcessProxyMessageFactory.CreateProxyMessage(System.String,System.String,System.String,System.Object)">
+            <summary>
+            Captures SK process event data into <see cref="T:Microsoft.SemanticKernel.KernelProcessProxyMessage"/>
+            </summary>
+            <param name="processId">id of the running process where the event is emitted from</param>
+            <param name="triggerEventName">SK event name triggered inside the process</param>
+            <param name="publishTopic">name to be used for publishing the event outside of the SK process</param>
+            <param name="data">data contained from SK event to be emitted externally</param>
+            <returns><see cref="T:Microsoft.SemanticKernel.KernelProcessProxyMessage"/></returns>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Process.Runtime.ProcessEvent">
+            <summary>
+            A wrapper around <see cref="T:Microsoft.SemanticKernel.KernelProcessEvent"/> that helps to manage the namespace of the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessEvent.Namespace">
+            <summary>
+            The namespace of the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessEvent.SourceId">
+            <summary>
+            The source Id of the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessEvent.Data">
+            <summary>
+            An optional data payload associated with the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessEvent.Visibility">
+            <summary>
+            The visibility of the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessEvent.IsError">
+            <summary>
+            This event represents a runtime error / exception raised internally by the framework.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessEvent.QualifiedId">
+            <summary>
+            The Qualified Id of the event.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Process.Runtime.ProcessEvent.Create(Microsoft.SemanticKernel.KernelProcessEvent,System.String,System.Boolean)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.SemanticKernel.Process.Runtime.ProcessEvent"/> from a <see cref="T:Microsoft.SemanticKernel.KernelProcessEvent"/>.
+            </summary>
+            <param name="kernelProcessEvent">The <see cref="T:Microsoft.SemanticKernel.KernelProcessEvent"/></param>
+            <param name="eventNamespace">The namespace of the event.</param>
+            <param name="isError">Indicates if event is from a runtime error.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Process.Runtime.ProcessEvent.Create(System.Object,System.String,System.String,Microsoft.SemanticKernel.KernelProcessEventVisibility,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.SemanticKernel.Process.Runtime.ProcessEvent"/>.
+            </summary>
+            <param name="data">data passed in the event</param>
+            <param name="eventNamespace">The namespace of the event.</param>
+            <param name="sourceId">event source id</param>
+            <param name="eventVisibility">visibility of the event</param>
+            <param name="isError">Indicates if event is from a runtime error.</param>
+            <param name="writtenToThread">Thread Id of the event</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage">
+            <summary>
+            Represents a message used in a process runtime.
+            </summary>
+            <remarks>
+            Initializes a new instance of the <see cref="T:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage"/> class.
+            </remarks>
+            <param name="SourceId">The source identifier of the message.</param>
+            <param name="DestinationId">The destination identifier of the message.</param>
+            <param name="FunctionName">The name of the function associated with the message.</param>
+            <param name="Values">The dictionary of values associated with the message.</param>
+            <param name="writtenToThread"></param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage.#ctor(System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.String)">
+            <summary>
+            Represents a message used in a process runtime.
+            </summary>
+            <remarks>
+            Initializes a new instance of the <see cref="T:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage"/> class.
+            </remarks>
+            <param name="SourceId">The source identifier of the message.</param>
+            <param name="DestinationId">The destination identifier of the message.</param>
+            <param name="FunctionName">The name of the function associated with the message.</param>
+            <param name="Values">The dictionary of values associated with the message.</param>
+            <param name="writtenToThread"></param>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage.SourceId">
+            <summary>The source identifier of the message.</summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage.DestinationId">
+            <summary>The destination identifier of the message.</summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage.FunctionName">
+            <summary>The name of the function associated with the message.</summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage.Values">
+            <summary>The dictionary of values associated with the message.</summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage.writtenToThread">
+            <summary></summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage.SourceEventId">
+            <summary>
+            Id of the the event that triggered the process message
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage.TargetEventId">
+            <summary>
+            The Id of the target event. This may be null if the message is not targeting a sub-process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage.TargetEventData">
+            <summary>
+            The data associated with the target event. This may be null if the message is not targeting a sub-process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage.GroupId">
+            <summary>
+            The Id of the group that the message belongs to. This may be null if the message is not part of a group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage.ThreadEval">
+            <summary>
+            An evaluation string that will be evaluated to determine the thread to run on.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage.MessagesInEval">
+            <summary>
+            An evaluation string that will be evaluated to determine the messages to send to the target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage.InputEvals">
+            <summary>
+            An evaluation string that will be evaluated to determine the inputs to send to the target.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Process.Runtime.ProcessMessageFactory">
+            <summary>
+            A factory class for creating <see cref="T:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage"/> instances.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Process.Runtime.ProcessMessageFactory.CreateFromEdge(Microsoft.SemanticKernel.KernelProcessEdge,System.String,System.Object,System.String)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage"/> instance from a <see cref="T:Microsoft.SemanticKernel.KernelProcessEdge"/> and a data object.
+            </summary>
+            <param name="edge">An instance of <see cref="T:Microsoft.SemanticKernel.KernelProcessEdge"/></param>
+            <param name="sourceEventId">id of the source steps generating the event</param>
+            <param name="data">A data object.</param>
+            <param name="writtenToThread">Optional thread id where the event was written</param>
+            <returns>An instance of <see cref="T:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage"/></returns>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.LocalKernelProcessContext">
+            <summary>
+            Provides context and actions on a process that is running locally.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalKernelProcessContext.SendEventAsync(Microsoft.SemanticKernel.KernelProcessEvent)">
+            <summary>
+            Sends a message to the process.
+            </summary>
+            <param name="processEvent">The event to sent to the process.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalKernelProcessContext.StopAsync">
+            <summary>
+            Stops the process.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalKernelProcessContext.GetStateAsync">
+            <summary>
+            Gets a snapshot of the current state of the process.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> where T is <see cref="T:Microsoft.SemanticKernel.KernelProcess"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalKernelProcessContext.DisposeAsync">
+            <summary>
+            Disposes of the resources used by the process.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalKernelProcessContext.GetExternalMessageChannelAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalKernelProcessContext.GetProcessIdAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.LocalKernelProcessFactory">
+            <summary>
+            A class that can run a process locally or in-process.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalKernelProcessFactory.StartAsync(Microsoft.SemanticKernel.KernelProcess,Microsoft.SemanticKernel.Kernel,Microsoft.SemanticKernel.KernelProcessEvent,Microsoft.SemanticKernel.IExternalKernelProcessMessageChannel)">
+            <summary>
+            Starts the specified process.
+            </summary>
+            <param name="process">Required: The <see cref="T:Microsoft.SemanticKernel.KernelProcess"/> to start running.</param>
+            <param name="kernel">Required: An instance of <see cref="T:Microsoft.SemanticKernel.Kernel"/></param>
+            <param name="initialEvent">Required: The initial event to start the process.</param>
+            <param name="externalMessageChannel">Optional: an instance of <see cref="T:Microsoft.SemanticKernel.IExternalKernelProcessMessageChannel"/>.</param>
+            <returns>An instance of <see cref="T:Microsoft.SemanticKernel.KernelProcess"/> that can be used to interrogate or stop the running process.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalKernelProcessFactory.RunToEndAsync(Microsoft.SemanticKernel.KernelProcess,Microsoft.SemanticKernel.Kernel,Microsoft.SemanticKernel.KernelProcessEvent,System.Nullable{System.TimeSpan},Microsoft.SemanticKernel.IExternalKernelProcessMessageChannel)">
+            <summary>
+            Starts the specified process and runs it to completion.
+            </summary>
+            <param name="process"></param>
+            <param name="kernel"></param>
+            <param name="initialEvent"></param>
+            <param name="timeout"></param>
+            <param name="externalMessageChannel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalMap.#ctor(Microsoft.SemanticKernel.KernelProcessMap,Microsoft.SemanticKernel.Kernel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.SemanticKernel.LocalMap"/> class.
+            </summary>
+            <param name="map">The <see cref="T:Microsoft.SemanticKernel.KernelProcessMap"/> instance.</param>
+            <param name="kernel">An instance of <see cref="T:Microsoft.SemanticKernel.Kernel"/></param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalMap.HandleMessageAsync(Microsoft.SemanticKernel.Process.Runtime.ProcessMessage)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalMap.InitializeStepAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.#ctor(Microsoft.SemanticKernel.KernelProcess,Microsoft.SemanticKernel.Kernel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.SemanticKernel.LocalProcess"/> class.
+            </summary>
+            <param name="process">The <see cref="T:Microsoft.SemanticKernel.KernelProcess"/> instance.</param>
+            <param name="kernel">An instance of <see cref="T:Microsoft.SemanticKernel.Kernel"/></param>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.LocalProcess.RootProcessId">
+            <summary>
+            The Id of the root process.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.StartAsync(Microsoft.SemanticKernel.Kernel,System.Boolean)">
+            <summary>
+            Starts the process with an initial event and an optional kernel.
+            </summary>
+            <param name="kernel">The <see cref="T:Microsoft.SemanticKernel.Kernel"/> instance to use within the running process.</param>
+            <param name="keepAlive">Indicates if the process should wait for external events after it's finished processing.</param>
+            <returns> <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.RunOnceAsync(Microsoft.SemanticKernel.KernelProcessEvent,Microsoft.SemanticKernel.Kernel)">
+            <summary>
+            Starts the process with an initial event and then waits for the process to finish. In this case the process will not
+            keep alive waiting for external events after the internal messages have stopped.
+            </summary>
+            <param name="processEvent">Required. The <see cref="T:Microsoft.SemanticKernel.KernelProcessEvent"/> to start the process with.</param>
+            <param name="kernel">Optional. A <see cref="T:Microsoft.SemanticKernel.Kernel"/> to use when executing the process.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.RunUntilEndAsync(Microsoft.SemanticKernel.KernelProcessEvent,Microsoft.SemanticKernel.Kernel,System.Nullable{System.TimeSpan})">
+            <summary>
+            Starts the process with an initial event and then waits for the process to finish. In this case the process will not
+            keep alive waiting for external events after the internal messages have stopped.
+            </summary>
+            <param name="processEvent">Required. The <see cref="T:Microsoft.SemanticKernel.KernelProcessEvent"/> to start the process with.</param>
+            <param name="kernel">Optional. A <see cref="T:Microsoft.SemanticKernel.Kernel"/> to use when executing the process.</param>
+            <param name="timeout">Optional. A <see cref="T:System.TimeSpan"/> to wait for the process to finish.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.StopAsync">
+            <summary>
+            Stops a running process. This will cancel the process and wait for it to complete before returning.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.SendMessageAsync(Microsoft.SemanticKernel.KernelProcessEvent,Microsoft.SemanticKernel.Kernel)">
+            <summary>
+            Sends a message to the process. This does not start the process if it's not already running, in
+            this case the message will remain queued until the process is started.
+            </summary>
+            <param name="processEvent">Required. The <see cref="T:Microsoft.SemanticKernel.KernelProcessEvent"/> to start the process with.</param>
+            <param name="kernel">Optional. A <see cref="T:Microsoft.SemanticKernel.Kernel"/> to use when executing the process.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.GetProcessInfoAsync">
+            <summary>
+            Gets the process information.
+            </summary>
+            <returns>An instance of <see cref="T:Microsoft.SemanticKernel.KernelProcess"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.HandleMessageAsync(Microsoft.SemanticKernel.Process.Runtime.ProcessMessage)">
+            <summary>
+            Handles a <see cref="T:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage"/> that has been sent to the process. This happens only in the case
+            of a process (this one) running as a step within another process (this one's parent). In this case the
+            entire sub-process should be executed within a single superstep.
+            </summary>
+            <param name="message">The message to process.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/></returns>
+            <exception cref="T:Microsoft.SemanticKernel.KernelException"></exception>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.InitializeProcessAsync">
+            <summary>
+            Loads the process and initializes the steps. Once this is complete the process can be started.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.InitializeStepAsync">
+            <summary>
+            Initializes this process as a step within another process.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask"/></returns>
+            <exception cref="T:Microsoft.SemanticKernel.KernelException"></exception>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.EnqueueExternalMessages(System.Collections.Generic.Queue{Microsoft.SemanticKernel.Process.Runtime.ProcessMessage})">
+            <summary>
+            Processes external events that have been sent to the process, translates them to <see cref="T:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage"/>s, and enqueues
+            them to the provided message channel so that they can be processed in the next superstep.
+            </summary>
+            <param name="messageChannel">The message channel where messages should be enqueued.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.EnqueueStepMessagesAsync(Microsoft.SemanticKernel.LocalStep,System.Collections.Generic.Queue{Microsoft.SemanticKernel.Process.Runtime.ProcessMessage})">
+            <summary>
+            Processes events emitted by the given step in the last superstep, translates them to <see cref="T:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage"/>s, and enqueues
+            them to the provided message channel so that they can be processed in the next superstep.
+            </summary>
+            <param name="step">The step containing outgoing events to process.</param>
+            <param name="messageChannel">The message channel where messages should be enqueued.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.ToKernelProcessAsync">
+            <summary>
+            Builds a <see cref="T:Microsoft.SemanticKernel.KernelProcess"/> from the current <see cref="T:Microsoft.SemanticKernel.LocalProcess"/>.
+            </summary>
+            <returns>An instance of <see cref="T:Microsoft.SemanticKernel.KernelProcess"/></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.ToKernelProcessStepInfoAsync">
+            <summary>
+            When the process is used as a step within another process, this method will be called
+            rather than ToKernelProcessAsync when extracting the state.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> where T is <see cref="T:Microsoft.SemanticKernel.KernelProcess"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProcess.DeinitializeStepAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProxy.#ctor(Microsoft.SemanticKernel.KernelProcessProxy,Microsoft.SemanticKernel.Kernel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.SemanticKernel.LocalMap"/> class.
+            </summary>
+            <param name="proxy">an instance of <see cref="T:Microsoft.SemanticKernel.KernelProcessProxy"/></param>
+            <param name="kernel">An instance of <see cref="T:Microsoft.SemanticKernel.Kernel"/></param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProxy.InitializeStepAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalProxy.DeinitializeStepAsync">
+            <summary>
+            Deinitialization of the Proxy Step, calling <see cref="M:Microsoft.SemanticKernel.Process.KernelProxyStep.DeactivateAsync(Microsoft.SemanticKernel.KernelProcessStepExternalContext)"/>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.LocalStep">
+            <summary>
+            Represents a step in a process that is running in-process.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalStep.#ctor(Microsoft.SemanticKernel.KernelProcessStepInfo,Microsoft.SemanticKernel.Kernel,System.String)">
+            <summary>
+            Represents a step in a process that is running in-process.
+            </summary>
+            <param name="stepInfo">An instance of <see cref="T:Microsoft.SemanticKernel.KernelProcessStepInfo"/></param>
+            <param name="kernel">Required. An instance of <see cref="T:Microsoft.SemanticKernel.Kernel"/>.</param>
+            <param name="parentProcessId">Optional. The Id of the parent process if one exists.</param>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.LocalStep.ParentProcessId">
+            <summary>
+            The Id of the parent process if one exists.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.LocalStep.Name">
+            <summary>
+            The name of the step.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.LocalStep.Id">
+            <summary>
+            The Id of the step.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.LocalStep.EventProxy">
+            <summary>
+            An event proxy that can be used to intercept events emitted by the step.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalStep.GetAllEvents">
+            <summary>
+            Retrieves all events that have been emitted by this step in the previous superstep.
+            </summary>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> where T is <see cref="T:Microsoft.SemanticKernel.KernelProcessEvent"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalStep.GetEdgeForEvent(System.String)">
+            <summary>
+            Retrieves all edges that are associated with the provided event Id.
+            </summary>
+            <param name="eventId">The event Id of interest.</param>
+            <returns>A <see cref="T:System.Collections.Generic.IEnumerable`1"/> where T is <see cref="T:Microsoft.SemanticKernel.KernelProcessEdge"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalStep.EmitEventAsync(Microsoft.SemanticKernel.KernelProcessEvent)">
+            <summary>
+            Emits an event from the step.
+            </summary>
+            <param name="processEvent">The event to emit.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalStep.HandleMessageAsync(Microsoft.SemanticKernel.Process.Runtime.ProcessMessage)">
+            <summary>
+            Handles a <see cref="T:Microsoft.SemanticKernel.Process.Runtime.ProcessMessage"/> that has been sent to the step.
+            </summary>
+            <param name="message">The message to process.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/></returns>
+            <exception cref="T:Microsoft.SemanticKernel.KernelException"></exception>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalStep.InitializeStepAsync">
+            <summary>
+            Initializes the step with the provided step information.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask"/></returns>
+            <exception cref="T:Microsoft.SemanticKernel.KernelException"></exception>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalStep.DeinitializeStepAsync">
+            <summary>
+            Deinitializes the step
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalStep.InvokeFunction(Microsoft.SemanticKernel.KernelFunction,Microsoft.SemanticKernel.Kernel,Microsoft.SemanticKernel.KernelArguments)">
+            <summary>
+            Invokes the provides function with the provided kernel and arguments.
+            </summary>
+            <param name="function">The function to invoke.</param>
+            <param name="kernel">The kernel to use for invocation.</param>
+            <param name="arguments">The arguments to invoke with.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> containing the result of the function invocation.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalStep.ToKernelProcessStepInfoAsync">
+            <summary>
+            Extracts the current state of the step and returns it as a <see cref="T:Microsoft.SemanticKernel.KernelProcessStepInfo"/>.
+            </summary>
+            <returns>An instance of <see cref="T:Microsoft.SemanticKernel.KernelProcessStepInfo"/></returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalStep.EmitEvent(Microsoft.SemanticKernel.Process.Runtime.ProcessEvent)">
+            <summary>
+            Emits an event from the step.
+            </summary>
+            <param name="localEvent">The event to emit.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.LocalStep.ScopedEvent(Microsoft.SemanticKernel.Process.Runtime.ProcessEvent)">
+            <summary>
+            Generates a scoped event for the step.
+            </summary>
+            <param name="localEvent">The event.</param>
+            <returns>A <see cref="T:Microsoft.SemanticKernel.Process.Runtime.ProcessEvent"/> with the correctly scoped namespace.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ActivityExtensions.StartActivityWithTags(System.Diagnostics.ActivitySource,System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}},System.Diagnostics.ActivityKind)">
+            <summary>
+            Starts an activity with the specified name and tags.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ActivityExtensions.SetTags(System.Diagnostics.Activity,System.ReadOnlySpan{System.Collections.Generic.KeyValuePair{System.String,System.Object}})">
+            <summary>
+            Adds tags to the activity.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ActivityExtensions.AttachSensitiveDataAsEvent(System.Diagnostics.Activity,System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}})">
+            <summary>
+            Adds an event to the activity. Should only be used for events that contain sensitive data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ActivityExtensions.SetError(System.Diagnostics.Activity,System.Exception)">
+            <summary>
+            Sets the error status and type on the activity.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics">
+            <summary>
+            Model diagnostics helper class that provides a set of methods to trace model activities with the OTel semantic conventions.
+            This class contains experimental features and may change in the future.
+            To enable these features, set one of the following switches to true:
+                `Microsoft.SemanticKernel.Experimental.GenAI.EnableOTelDiagnostics`
+                `Microsoft.SemanticKernel.Experimental.GenAI.EnableOTelDiagnosticsSensitive`
+            Or set the following environment variables to true:
+               `SEMANTICKERNEL_EXPERIMENTAL_GENAI_ENABLE_OTEL_DIAGNOSTICS`
+               `SEMANTICKERNEL_EXPERIMENTAL_GENAI_ENABLE_OTEL_DIAGNOSTICS_SENSITIVE`
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.StartCompletionActivity``1(System.Uri,System.String,System.String,System.String,``0)">
+            <summary>
+            Start a text completion activity for a given model.
+            The activity will be tagged with the a set of attributes specified by the semantic conventions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.StartCompletionActivity``1(System.Uri,System.String,System.String,Microsoft.SemanticKernel.ChatCompletion.ChatHistory,``0)">
+            <summary>
+            Start a chat completion activity for a given model.
+            The activity will be tagged with the a set of attributes specified by the semantic conventions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.StartAgentInvocationActivity(System.String,System.String,System.String)">
+            <summary>
+            Start an agent invocation activity and return the activity.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.SetCompletionResponse(System.Diagnostics.Activity,System.Collections.Generic.IEnumerable{Microsoft.SemanticKernel.TextContent},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Set the text completion response for a given activity.
+            The activity will be enriched with the response attributes specified by the semantic conventions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.SetCompletionResponse(System.Diagnostics.Activity,System.Collections.Generic.IEnumerable{Microsoft.SemanticKernel.ChatMessageContent},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Set the chat completion response for a given activity.
+            The activity will be enriched with the response attributes specified by the semantic conventions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.EndStreaming(System.Diagnostics.Activity,System.Collections.Generic.IEnumerable{Microsoft.SemanticKernel.StreamingKernelContent},System.Collections.Generic.IEnumerable{Microsoft.SemanticKernel.FunctionCallContent},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Notify the end of streaming for a given activity.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.SetResponseId(System.Diagnostics.Activity,System.String)">
+            <summary>
+            Set the response id for a given activity.
+            </summary>
+            <param name="activity">The activity to set the response id</param>
+            <param name="responseId">The response id</param>
+            <returns>The activity with the response id set for chaining</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.SetInputTokensUsage(System.Diagnostics.Activity,System.Int32)">
+            <summary>
+            Set the input tokens usage for a given activity.
+            </summary>
+            <param name="activity">The activity to set the input tokens usage</param>
+            <param name="inputTokens">The number of input tokens used</param>
+            <returns>The activity with the input tokens usage set for chaining</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.SetOutputTokensUsage(System.Diagnostics.Activity,System.Int32)">
+            <summary>
+            Set the output tokens usage for a given activity.
+            </summary>
+            <param name="activity">The activity to set the output tokens usage</param>
+            <param name="outputTokens">The number of output tokens used</param>
+            <returns>The activity with the output tokens usage set for chaining</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.IsModelDiagnosticsEnabled">
+            <summary>
+            Check if model diagnostics is enabled
+            Model diagnostics is enabled if either EnableModelDiagnostics or EnableSensitiveEvents is set to true and there are listeners.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.IsSensitiveEventsEnabled">
+            <summary>
+            Check if sensitive events are enabled.
+            Sensitive events are enabled if EnableSensitiveEvents is set to true and there are listeners.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.ToGenAIConventionsFormat(Microsoft.SemanticKernel.ChatMessageContent,System.Text.StringBuilder)">
+            <summary>
+            Convert a chat message to a string aligned with the OTel GenAI Semantic Conventions format
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.ToGenAIConventionsFormat(Microsoft.SemanticKernel.ChatCompletion.ChatMessageContentItemCollection,System.Text.StringBuilder)">
+            <summary>
+            Helper method to convert tool calls to a string aligned with the OTel GenAI Semantic Conventions format
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.ToGenAIConventionsChoiceFormat(Microsoft.SemanticKernel.ChatMessageContent,System.Int32)">
+            <summary>
+            Convert a chat model response to a string aligned with the OTel GenAI Semantic Conventions format
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.ToGenAIConventionsChoiceFormat(Microsoft.SemanticKernel.TextContent,System.Int32)">
+            <summary>
+            Convert a text model response to a string aligned with the OTel GenAI Semantic Conventions format
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.SetCompletionResponse``1(System.Diagnostics.Activity,System.Collections.Generic.IEnumerable{``0},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Func{``0,System.Int32,System.String})">
+            <summary>
+            Set the completion response for a given activity.
+            The `formatCompletions` delegate won't be invoked if events are disabled.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.SetCompletionResponse(System.Diagnostics.Activity,System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{Microsoft.SemanticKernel.StreamingKernelContent}},System.Collections.Generic.IEnumerable{Microsoft.SemanticKernel.FunctionCallContent},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Set the streaming completion response for a given activity.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.OrganizeStreamingContent(System.Collections.Generic.IEnumerable{Microsoft.SemanticKernel.StreamingKernelContent})">
+            <summary>
+            Organize streaming content by choice index
+            </summary>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Diagnostics.ModelDiagnostics.ModelDiagnosticsTags">
+            <summary>
+            Tags used in model diagnostics
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.KernelVerify.AsciiLettersDigitsUnderscoresRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^[0-9A-Za-z_]*$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match a character in the set [0-9A-Z_a-z] atomically any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.KernelVerify.ParametersUniqueness(System.Collections.Generic.IReadOnlyList{Microsoft.SemanticKernel.KernelParameterMetadata})">
+            <summary>
+            Make sure every function parameter name is unique
+            </summary>
+            <param name="parameters">List of parameters</param>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Throw">
+            <summary>
+            Defines static methods used to throw exceptions.
+            </summary>
+            <remarks>
+            The main purpose is to reduce code size, improve performance, and standardize exception
+            messages.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfNull``1(``0,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentNullException"/> if the specified argument is <see langword="null"/>.
+            </summary>
+            <typeparam name="T">Argument type to be checked for <see langword="null"/>.</typeparam>
+            <param name="argument">Object to be checked for <see langword="null"/>.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfNullOrMemberNull``2(``0,``1,System.String,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentNullException"/> if the specified argument is <see langword="null"/>,
+            or <see cref="T:System.ArgumentException" /> if the specified member is <see langword="null"/>.
+            </summary>
+            <typeparam name="TParameter">Argument type to be checked for <see langword="null"/>.</typeparam>
+            <typeparam name="TMember">Member type to be checked for <see langword="null"/>.</typeparam>
+            <param name="argument">Argument to be checked for <see langword="null"/>.</param>
+            <param name="member">Object member to be checked for <see langword="null"/>.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <param name="memberName">The name of the member.</param>
+            <returns>The original value of <paramref name="member"/>.</returns>
+            <example>
+            <code language="csharp">
+            Throws.IfNullOrMemberNull(myObject, myObject?.MyProperty)
+            </code>
+            </example>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfMemberNull``2(``0,``1,System.String,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentException" /> if the specified member is <see langword="null"/>.
+            </summary>
+            <typeparam name="TParameter">Argument type.</typeparam>
+            <typeparam name="TMember">Member type to be checked for <see langword="null"/>.</typeparam>
+            <param name="argument">Argument to which member belongs.</param>
+            <param name="member">Object member to be checked for <see langword="null"/>.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <param name="memberName">The name of the member.</param>
+            <returns>The original value of <paramref name="member"/>.</returns>
+            <example>
+            <code language="csharp">
+            Throws.IfMemberNull(myObject, myObject.MyProperty)
+            </code>
+            </example>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfNullOrWhitespace(System.String,System.String)">
+            <summary>
+            Throws either an <see cref="T:System.ArgumentNullException"/> or an <see cref="T:System.ArgumentException"/>
+            if the specified string is <see langword="null"/> or whitespace respectively.
+            </summary>
+            <param name="argument">String to be checked for <see langword="null"/> or whitespace.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfNullOrEmpty(System.String,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentNullException"/> if the string is <see langword="null"/>,
+            or <see cref="T:System.ArgumentException"/> if it is empty.
+            </summary>
+            <param name="argument">String to be checked for <see langword="null"/> or empty.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfBufferTooSmall(System.Int32,System.Int32,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentException"/> if the argument's buffer size is less than the required buffer size.
+            </summary>
+            <param name="bufferSize">The actual buffer size.</param>
+            <param name="requiredSize">The required buffer size.</param>
+            <param name="paramName">The name of the parameter to be checked.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfOutOfRange``1(``0,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the enum value is not valid.
+            </summary>
+            <param name="argument">The argument to evaluate.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <typeparam name="T">The type of the enumeration.</typeparam>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentNullException"/> if the collection is <see langword="null"/>,
+            or <see cref="T:System.ArgumentException"/> if it is empty.
+            </summary>
+            <param name="argument">The collection to evaluate.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <typeparam name="T">The type of objects in the collection.</typeparam>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.ArgumentNullException(System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentNullException"/>.
+            </summary>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.ArgumentNullException(System.String,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentNullException"/>.
+            </summary>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+            <param name="message">A message that describes the error.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.ArgumentOutOfRangeException(System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/>.
+            </summary>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.ArgumentOutOfRangeException(System.String,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/>.
+            </summary>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+            <param name="message">A message that describes the error.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.ArgumentOutOfRangeException(System.String,System.Object,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/>.
+            </summary>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+            <param name="actualValue">The value of the argument that caused this exception.</param>
+            <param name="message">A message that describes the error.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.ArgumentException(System.String,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentException"/>.
+            </summary>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+            <param name="message">A message that describes the error.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.ArgumentException(System.String,System.String,System.Exception)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentException"/>.
+            </summary>
+            <param name="paramName">The name of the parameter that caused the exception.</param>
+            <param name="message">A message that describes the error.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+            <remarks>
+            If the <paramref name="innerException"/> is not a <see langword="null"/>, the current exception is raised in a catch
+            block that handles the inner exception.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.InvalidOperationException(System.String)">
+            <summary>
+            Throws an <see cref="T:System.InvalidOperationException"/>.
+            </summary>
+            <param name="message">A message that describes the error.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.InvalidOperationException(System.String,System.Exception)">
+            <summary>
+            Throws an <see cref="T:System.InvalidOperationException"/>.
+            </summary>
+            <param name="message">A message that describes the error.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfLessThan(System.Int32,System.Int32,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/>  if the specified number is less than min.
+            </summary>
+            <param name="argument">Number to be expected being less than min.</param>
+            <param name="min">The number that must be less than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfGreaterThan(System.Int32,System.Int32,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is greater than max.
+            </summary>
+            <param name="argument">Number to be expected being greater than max.</param>
+            <param name="max">The number that must be greater than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfLessThanOrEqual(System.Int32,System.Int32,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is less or equal than min.
+            </summary>
+            <param name="argument">Number to be expected being less or equal than min.</param>
+            <param name="min">The number that must be less or equal than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfGreaterThanOrEqual(System.Int32,System.Int32,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is greater or equal than max.
+            </summary>
+            <param name="argument">Number to be expected being greater or equal than max.</param>
+            <param name="max">The number that must be greater or equal than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfOutOfRange(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is not in the specified range.
+            </summary>
+            <param name="argument">Number to be expected being greater or equal than max.</param>
+            <param name="min">The lower bound of the allowed range of argument values.</param>
+            <param name="max">The upper bound of the allowed range of argument values.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfZero(System.Int32,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is equal to 0.
+            </summary>
+            <param name="argument">Number to be expected being not equal to zero.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfLessThan(System.UInt32,System.UInt32,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/>  if the specified number is less than min.
+            </summary>
+            <param name="argument">Number to be expected being less than min.</param>
+            <param name="min">The number that must be less than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfGreaterThan(System.UInt32,System.UInt32,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is greater than max.
+            </summary>
+            <param name="argument">Number to be expected being greater than max.</param>
+            <param name="max">The number that must be greater than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfLessThanOrEqual(System.UInt32,System.UInt32,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is less or equal than min.
+            </summary>
+            <param name="argument">Number to be expected being less or equal than min.</param>
+            <param name="min">The number that must be less or equal than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfGreaterThanOrEqual(System.UInt32,System.UInt32,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is greater or equal than max.
+            </summary>
+            <param name="argument">Number to be expected being greater or equal than max.</param>
+            <param name="max">The number that must be greater or equal than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfOutOfRange(System.UInt32,System.UInt32,System.UInt32,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is not in the specified range.
+            </summary>
+            <param name="argument">Number to be expected being greater or equal than max.</param>
+            <param name="min">The lower bound of the allowed range of argument values.</param>
+            <param name="max">The upper bound of the allowed range of argument values.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfZero(System.UInt32,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is equal to 0.
+            </summary>
+            <param name="argument">Number to be expected being not equal to zero.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfLessThan(System.Int64,System.Int64,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/>  if the specified number is less than min.
+            </summary>
+            <param name="argument">Number to be expected being less than min.</param>
+            <param name="min">The number that must be less than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfGreaterThan(System.Int64,System.Int64,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is greater than max.
+            </summary>
+            <param name="argument">Number to be expected being greater than max.</param>
+            <param name="max">The number that must be greater than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfLessThanOrEqual(System.Int64,System.Int64,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is less or equal than min.
+            </summary>
+            <param name="argument">Number to be expected being less or equal than min.</param>
+            <param name="min">The number that must be less or equal than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfGreaterThanOrEqual(System.Int64,System.Int64,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is greater or equal than max.
+            </summary>
+            <param name="argument">Number to be expected being greater or equal than max.</param>
+            <param name="max">The number that must be greater or equal than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfOutOfRange(System.Int64,System.Int64,System.Int64,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is not in the specified range.
+            </summary>
+            <param name="argument">Number to be expected being greater or equal than max.</param>
+            <param name="min">The lower bound of the allowed range of argument values.</param>
+            <param name="max">The upper bound of the allowed range of argument values.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfZero(System.Int64,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is equal to 0.
+            </summary>
+            <param name="argument">Number to be expected being not equal to zero.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfLessThan(System.UInt64,System.UInt64,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/>  if the specified number is less than min.
+            </summary>
+            <param name="argument">Number to be expected being less than min.</param>
+            <param name="min">The number that must be less than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfGreaterThan(System.UInt64,System.UInt64,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is greater than max.
+            </summary>
+            <param name="argument">Number to be expected being greater than max.</param>
+            <param name="max">The number that must be greater than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfLessThanOrEqual(System.UInt64,System.UInt64,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is less or equal than min.
+            </summary>
+            <param name="argument">Number to be expected being less or equal than min.</param>
+            <param name="min">The number that must be less or equal than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfGreaterThanOrEqual(System.UInt64,System.UInt64,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is greater or equal than max.
+            </summary>
+            <param name="argument">Number to be expected being greater or equal than max.</param>
+            <param name="max">The number that must be greater or equal than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfOutOfRange(System.UInt64,System.UInt64,System.UInt64,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is not in the specified range.
+            </summary>
+            <param name="argument">Number to be expected being greater or equal than max.</param>
+            <param name="min">The lower bound of the allowed range of argument values.</param>
+            <param name="max">The upper bound of the allowed range of argument values.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfZero(System.UInt64,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is equal to 0.
+            </summary>
+            <param name="argument">Number to be expected being not equal to zero.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfLessThan(System.Double,System.Double,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is less than min.
+            </summary>
+            <param name="argument">Number to be expected being less than min.</param>
+            <param name="min">The number that must be less than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfGreaterThan(System.Double,System.Double,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is greater than max.
+            </summary>
+            <param name="argument">Number to be expected being greater than max.</param>
+            <param name="max">The number that must be greater than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfLessThanOrEqual(System.Double,System.Double,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is less or equal than min.
+            </summary>
+            <param name="argument">Number to be expected being less or equal than min.</param>
+            <param name="min">The number that must be less or equal than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfGreaterThanOrEqual(System.Double,System.Double,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is greater or equal than max.
+            </summary>
+            <param name="argument">Number to be expected being greater or equal than max.</param>
+            <param name="max">The number that must be greater or equal than the argument.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfOutOfRange(System.Double,System.Double,System.Double,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is not in the specified range.
+            </summary>
+            <param name="argument">Number to be expected being greater or equal than max.</param>
+            <param name="min">The lower bound of the allowed range of argument values.</param>
+            <param name="max">The upper bound of the allowed range of argument values.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Throw.IfZero(System.Double,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if the specified number is equal to 0.
+            </summary>
+            <param name="argument">Number to be expected being not equal to zero.</param>
+            <param name="paramName">The name of the parameter being checked.</param>
+            <returns>The original value of <paramref name="argument"/>.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Verify.AsciiLettersDigitsUnderscoresRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^[0-9A-Za-z_]*$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match a character in the set [0-9A-Z_a-z] atomically any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Verify.FilenameRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^[^.]+\\.[^.]+$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match a character other than '.' atomically at least once.<br/>
+            ○ Match '.'.<br/>
+            ○ Match a character other than '.' greedily at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Verify.NotNull(System.Object,System.String)">
+            <summary>
+            Equivalent of ArgumentNullException.ThrowIfNull
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Verify.ValidHostnameSegment(System.String,System.String)">
+            <summary>
+            Validates that a hostname segment string is safe for use as a URL segment, preventing URL injection.
+            </summary>
+            <param name="hostNameSegment">The hostname segment string to validate (e.g., 'us-east1', 'europe-west4')</param>
+            <param name="paramName">Optional parameter name for the exception</param>
+            <exception cref="T:System.ArgumentException">Thrown when the location contains invalid characters or patterns</exception>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.FunctionName">
+            <summary>
+            Represents a function name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.FunctionName.PluginName">
+            <summary>
+            The plugin name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.FunctionName.Name">
+            <summary>
+            The function name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.FunctionName.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.SemanticKernel.FunctionName"/> class.
+            </summary>
+            <param name="name">The function name.</param>
+            <param name="pluginName">The plugin name.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.FunctionName.ToFullyQualifiedName(System.String,System.String,System.String)">
+            <summary>
+            Gets the fully-qualified name of the function.
+            </summary>
+            <param name="functionName">The function name.</param>
+            <param name="pluginName">The plugin name.</param>
+            <param name="functionNameSeparator">The function name separator.</param>
+            <returns>Fully-qualified name of the function.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.FunctionName.Parse(System.String,System.String)">
+            <summary>
+            Creates a new instance of the <see cref="T:Microsoft.SemanticKernel.FunctionName"/> class.
+            </summary>
+            <param name="fullyQualifiedName">Fully-qualified name of the function.</param>
+            <param name="functionNameSeparator">The function name separator.</param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Http.HttpClientExtensions.SendWithSuccessCheckAsync(System.Net.Http.HttpClient,System.Net.Http.HttpRequestMessage,System.Net.Http.HttpCompletionOption,System.Threading.CancellationToken)">
+            <summary>
+            Sends an HTTP request using the provided <see cref="T:System.Net.Http.HttpClient"/> instance and checks for a successful response.
+            If the response is not successful, it logs an error and throws an <see cref="T:Microsoft.SemanticKernel.HttpOperationException"/>.
+            </summary>
+            <param name="client">The <see cref="T:System.Net.Http.HttpClient"/> instance to use for sending the request.</param>
+            <param name="request">The <see cref="T:System.Net.Http.HttpRequestMessage"/> to send.</param>
+            <param name="completionOption">Indicates if HttpClient operations should be considered completed either as soon as a response is available,
+            or after reading the entire response message including the content.</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> for canceling the request.</param>
+            <returns>The <see cref="T:System.Net.Http.HttpResponseMessage"/> representing the response.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Http.HttpClientExtensions.SendWithSuccessCheckAsync(System.Net.Http.HttpClient,System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Sends an HTTP request using the provided <see cref="T:System.Net.Http.HttpClient"/> instance and checks for a successful response.
+            If the response is not successful, it logs an error and throws an <see cref="T:Microsoft.SemanticKernel.HttpOperationException"/>.
+            </summary>
+            <param name="client">The <see cref="T:System.Net.Http.HttpClient"/> instance to use for sending the request.</param>
+            <param name="request">The <see cref="T:System.Net.Http.HttpRequestMessage"/> to send.</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken"/> for canceling the request.</param>
+            <returns>The <see cref="T:System.Net.Http.HttpResponseMessage"/> representing the response.</returns>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Http.HttpClientProvider">
+            <summary>
+            Provides functionality for retrieving instances of HttpClient.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Http.HttpClientProvider.GetHttpClient">
+            <summary>
+            Retrieves an instance of HttpClient.
+            </summary>
+            <returns>An instance of HttpClient.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Http.HttpClientProvider.GetHttpClient(System.Net.Http.HttpClient)">
+            <summary>
+            Retrieves an instance of HttpClient.
+            </summary>
+            <returns>An instance of HttpClient.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Http.HttpClientProvider.GetHttpClient(System.IServiceProvider)">
+            <summary>
+            Retrieves an instance of HttpClient.
+            </summary>
+            <returns>An instance of HttpClient.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Http.HttpClientProvider.GetHttpClient(System.Net.Http.HttpClient,System.IServiceProvider)">
+            <summary>
+            Retrieves an instance of HttpClient.
+            </summary>
+            <returns>An instance of HttpClient.</returns>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Http.HttpClientProvider.NonDisposableHttpClientHandler">
+            <summary>
+            Represents a singleton implementation of <see cref="T:System.Net.Http.HttpClientHandler"/> that is not disposable.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Http.HttpClientProvider.NonDisposableHttpClientHandler.#ctor">
+            <summary>
+            Private constructor to prevent direct instantiation of the class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Http.HttpClientProvider.NonDisposableHttpClientHandler.Instance">
+            <summary>
+            Gets the singleton instance of <see cref="T:Microsoft.SemanticKernel.Http.HttpClientProvider.NonDisposableHttpClientHandler"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Http.HttpClientProvider.NonDisposableHttpClientHandler.Dispose(System.Boolean)">
+            <summary>
+            Disposes the underlying resources held by the <see cref="T:Microsoft.SemanticKernel.Http.HttpClientProvider.NonDisposableHttpClientHandler"/>.
+            This implementation does nothing to prevent unintended disposal, as it may affect all references.
+            </summary>
+            <param name="disposing">True if called from <see cref="M:Microsoft.SemanticKernel.Http.HttpClientProvider.NonDisposableHttpClientHandler.Dispose(System.Boolean)"/>, false if called from a finalizer.</param>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Http.HttpContentExtensions">
+            <summary>
+            Provides extension methods for working with HTTP content in a way that translates HttpRequestExceptions into HttpOperationExceptions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Http.HttpContentExtensions.ReadAsStringWithExceptionMappingAsync(System.Net.Http.HttpContent,System.Threading.CancellationToken)">
+            <summary>
+            Reads the content of the HTTP response as a string and translates any HttpRequestException into an HttpOperationException.
+            </summary>
+            <param name="httpContent">The HTTP content to read.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string representation of the HTTP content.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Http.HttpContentExtensions.ReadAsStreamAndTranslateExceptionAsync(System.Net.Http.HttpContent,System.Threading.CancellationToken)">
+            <summary>
+            Reads the content of the HTTP response as a stream and translates any HttpRequestException into an HttpOperationException.
+            </summary>
+            <param name="httpContent">The HTTP content to read.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A stream representing the HTTP content.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Http.HttpContentExtensions.ReadAsByteArrayAndTranslateExceptionAsync(System.Net.Http.HttpContent,System.Threading.CancellationToken)">
+            <summary>
+            Reads the content of the HTTP response as a byte array and translates any HttpRequestException into an HttpOperationException.
+            </summary>
+            <param name="httpContent">The HTTP content to read.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A byte array representing the HTTP content.</returns>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Http.HttpHeaderConstant">
+            <summary>Provides HTTP header names and values for common purposes.</summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Http.HttpHeaderConstant.Names.SemanticKernelVersion">
+            <summary>HTTP header name to use to include the Semantic Kernel package version in all HTTP requests issued by Semantic Kernel.</summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Http.HttpHeaderConstant.Names.UserAgent">
+            <summary>HTTP User-Agent header name.</summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Http.HttpHeaderConstant.Values.UserAgent">
+            <summary>User agent string to use for all HTTP requests issued by Semantic Kernel.</summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Http.HttpHeaderConstant.Values.GetAssemblyVersion(System.Type)">
+            <summary>
+            Gets the version of the <see cref="T:System.Reflection.Assembly"/> in which the specific type is declared.
+            </summary>
+            <param name="type">Type for which the assembly version is returned.</param>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Http.HttpResponseStream">
+            <summary>
+            Associate a response stream with its parent response for parity in life-cycle management.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Http.HttpResponseStream.#ctor(System.IO.Stream,System.Net.Http.HttpResponseMessage)">
+            <summary>
+            Associate a response stream with its parent response for parity in life-cycle management.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Freezable">
+            <summary>
+            Represents a freezable object.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Freezable.Freeze">
+            <summary>
+            Makes the current instance unmodifiable.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Freezable.ThrowIfFrozen">
+            <summary>
+            Throws an <see cref="T:System.InvalidOperationException"/> if the object is frozen.
+            </summary>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.AppContextSwitchHelper">
+            <summary>
+            Helper class to get app context switch value
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.AppContextSwitchHelper.GetConfigValue(System.String,System.String)">
+            <summary>
+            Returns the value of the specified app switch or environment variable if it is set.
+            If the switch or environment variable is not set, return false.
+            The app switch value takes precedence over the environment variable.
+            </summary>
+            <param name="appContextSwitchName">The name of the app switch.</param>
+            <param name="envVarName">The name of the environment variable.</param>
+            <returns>The value of the app switch or environment variable if it is set; otherwise, false.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.IListExtensions.AddRange``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Adds a range of elements from the specified <see cref="T:System.Collections.Generic.IEnumerable`1"/> source to the target <see cref="T:System.Collections.Generic.IList`1"/>.
+            </summary>
+            <typeparam name="T">The type of elements in the list.</typeparam>
+            <param name="target">The target <see cref="T:System.Collections.Generic.IList`1"/> to add elements to.</param>
+            <param name="source">The source <see cref="T:System.Collections.Generic.IEnumerable`1"/> containing elements to add to the target <see cref="T:System.Collections.Generic.IList`1"/>.</param>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.InternalTypeConverter">
+            <summary>
+            Provides internal utility methods for converting types to strings with consideration for CultureInfo.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.InternalTypeConverter.ConvertToString(System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts the given object value to a string representation using the appropriate CultureInfo.
+            </summary>
+            <param name="value">The object to convert.</param>
+            <param name="culture">The CultureInfo to consider during conversion.</param>
+            <returns>A string representation of the object value, considering the specified CultureInfo.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.InternalTypeConverter.GetTypeToStringConverterDelegate(System.Type)">
+            <summary>
+            Retrieves a type-to-string converter delegate for the specified source type.
+            </summary>
+            <param name="sourceType">The source Type for which to retrieve the type-to-string converter delegate.</param>
+            <returns>A Func delegate for converting the source type to a string, considering CultureInfo, or null if no suitable converter is found.</returns>
+        </member>
+        <member name="F:Microsoft.SemanticKernel.InternalTypeConverter.s_converters">
+            <summary>Converter functions for converting types to strings.</summary>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.NonNullCollection`1">
+            <summary>
+            Provides a collection of non-null items.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SemanticKernel.NonNullCollection`1._items">
+            <summary>
+            The underlying list of items.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.NonNullCollection`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.SemanticKernel.NonNullCollection`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.NonNullCollection`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.SemanticKernel.NonNullCollection`1"/> class.
+            </summary>
+            <param name="items">The initial collection of items to populate this collection.</param>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.NonNullCollection`1.Item(System.Int32)">
+            <summary>
+            Gets or sets the item at the specified index in the collection.
+            </summary>
+            <param name="index">The index of the item to get or set.</param>
+            <returns>The item at the specified index.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value"/> is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">The <paramref name="index"/> was not valid for this collection.</exception>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.NonNullCollection`1.Count">
+            <summary>
+            Gets the number of items in the collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.NonNullCollection`1.Add(`0)">
+            <summary>
+            Adds an item to the collection.
+            </summary>
+            <param name="item">The item to add.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="item"/> is null.</exception>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.NonNullCollection`1.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.NonNullCollection`1.Contains(`0)">
+            <summary>
+            Determines whether an item is in the collection.
+            </summary>
+            <param name="item">The item to locate.</param>
+            <returns>True if the item is found in the collection; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="item"/> is null.</exception>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.NonNullCollection`1.CopyTo(`0[],System.Int32)">
+            <summary>
+            Copies all of the items in the collection to an array, starting at the specified destination array index.
+            </summary>
+            <param name="array">The destination array into which the items should be copied.</param>
+            <param name="arrayIndex">The zero-based index into <paramref name="array"/> at which copying should begin.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="array"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">The number of items in the collection is greater than the available space from <paramref name="arrayIndex"/> to the end of <paramref name="array"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="arrayIndex"/> is less than 0.</exception>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.NonNullCollection`1.IndexOf(`0)">
+            <summary>
+            Searches for the specified item and returns the index of the first occurrence.
+            </summary>
+            <param name="item">The item to locate.</param>
+            <returns>The index of the first found occurrence of the specified item; -1 if the item could not be found.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.NonNullCollection`1.Insert(System.Int32,`0)">
+            <summary>
+            Inserts an item into the collection at the specified index.
+            </summary>
+            <param name="index">The index at which the item should be inserted.</param>
+            <param name="item">The item to insert.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="item"/> is null.</exception>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.NonNullCollection`1.Remove(`0)">
+            <summary>
+            Removes the first occurrence of the specified item from the collection.
+            </summary>
+            <param name="item">The item to remove from the collection.</param>
+            <returns>True if the item was successfully removed; false if it wasn't located in the collection.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="item"/> is null.</exception>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.NonNullCollection`1.RemoveAt(System.Int32)">
+            <summary>
+            Removes the item at the specified index from the collection.
+            </summary>
+            <param name="index">The index of the item to remove.</param>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.TypeConverterFactory">
+            <summary>
+            Factory for creating TypeConverter instances based on a provided type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.TypeConverterFactory.GetTypeConverter(System.Type)">
+            <summary>
+            Returns a TypeConverter instance for the specified type.
+            </summary>
+            <param name="type">The Type of the object to convert.</param>
+            <returns>A TypeConverter instance if a suitable converter is found, otherwise null.</returns>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Text.BoolJsonConverter">
+            <summary>
+            Deserializes a bool from a string. This is useful when deserializing a <see cref="T:Microsoft.SemanticKernel.PromptExecutionSettings"/> instance that contains bool properties.
+            Serializing a <see cref="T:Microsoft.SemanticKernel.PromptExecutionSettings"/> instance without this converter will throw a 'System.Text.Json.JsonException : The JSON value could not be converted to System.Nullable'
+            if there are any bool properties.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.BoolJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.BoolJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.Boolean,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Text.DataUriParser">
+            <summary>
+            Data Uri Scheme Parser based on RFC 2397.
+            https://datatracker.ietf.org/doc/html/rfc2397
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.DataUriParser.IsBase64String(System.String)">
+            <summary>
+            Extension method to test whether the value is a base64 string
+            </summary>
+            <param name="value">Value to test</param>
+            <returns>Boolean value, true if the string is base64, otherwise false</returns>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Text.DataUriParser.DataUri">
+            <summary>
+            Represents the data URI parts.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.DataUriParser.DataUri.MimeType">
+            <summary>
+            The mime type of the data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.DataUriParser.DataUri.Parameters">
+            <summary>
+            The optional parameters of the data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.DataUriParser.DataUri.DataFormat">
+            <summary>
+            The optional format of the data. Most common is "base64".
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.DataUriParser.DataUri.Data">
+            <summary>
+            The data content.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Text.ExceptionJsonConverter">
+            <summary>
+            Serializes an exception as a string. This is useful when serializing an instance of an exception directly or indirectly via serializing an instance that
+            references an exception. For example, when serializing chat history that contains FunctionCallContent or FunctionResultContent items referencing an exception.
+            Serializing an exception without this converter will throw a System.NotSupportedException: Serialization and deserialization of System.Reflection.MethodBase instances is not supported. Path: $.Items.Exception.TargetSite.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.ExceptionJsonConverter.CanConvert(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.ExceptionJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.Object,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.ExceptionJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Text.JsonOptionsCache">
+            <summary>Caches common configurations of <see cref="T:System.Text.Json.JsonSerializerOptions"/>.</summary>\
+            <remarks>
+            All of the instances include a converter for <see cref="T:System.ReadOnlyMemory`1"/>.
+            Once the System.Text.Json package is upgraded to 8.0+, this will no longer be
+            necessary and the actual default can be used.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.JsonOptionsCache.Default">
+            <summary>
+            Cached <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance for reading and writing JSON using the default settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.JsonOptionsCache.WriteIndented">
+            <summary>
+            Cached <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance for writing JSON with indentation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.JsonOptionsCache.ReadPermissive">
+            <summary>
+            Cached <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance for reading JSON in a permissive way,
+            including support for trailing commas, case-insensitive property names, and comments.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.JsonOptionsCache.ChatHistory">
+            <summary>
+            Gets the <see cref="T:System.Text.Json.JsonSerializerOptions"/> configured for serializing chat history data.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Text.OptionalBoolJsonConverter">
+            <summary>
+            Deserializes a bool from a string. This is useful when deserializing a <see cref="T:Microsoft.SemanticKernel.PromptExecutionSettings"/> instance that contains bool properties.
+            Serializing a <see cref="T:Microsoft.SemanticKernel.PromptExecutionSettings"/> instance without this converter will throw a 'System.Text.Json.JsonException : The JSON value could not be converted to System.Nullable'
+            if there are any bool properties.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.OptionalBoolJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.OptionalBoolJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.Nullable{System.Boolean},System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Text.SseData">
+            <summary>
+            Represents a single Server-Sent Events (SSE) data object.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.SseData.EventName">
+            <summary>
+            The name of the sse event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.SseData.DataType">
+            <summary>
+            Represents the type of data parsed from SSE message.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.SseData.Data">
+            <summary>
+            Represents the data parsed from SSE message.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.SseData.#ctor(System.String,System.Object)">
+            <summary>
+            Represents a single Server-Sent Events (SSE) data object.
+            </summary>
+            <param name="eventName">The name of the sse event.</param>
+            <param name="data">The data parsed from SSE message.</param>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Text.SseJsonParser">
+            <summary>
+            Internal class for parsing Server-Sent Events (SSE) data from a stream.
+            </summary>
+            <remarks>
+            This is specialized parser for Server-Sent Events (SSE) data that is formatted as JSON.<br/>
+            If you need to parse non-structured json streaming data, use <see cref="T:Microsoft.SemanticKernel.Text.StreamJsonParser"/> instead.<br/>
+            <a href="https://html.spec.whatwg.org/multipage/server-sent-events.html#parsing-an-event-stream">SSE specification</a><br/>
+            This class is thread-safe.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.SseJsonParser.ParseAsync(System.IO.Stream,System.Func{Microsoft.SemanticKernel.Text.SseLine,Microsoft.SemanticKernel.Text.SseData},System.Threading.CancellationToken)">
+            <summary>
+            Parses Server-Sent Events (SSE) data asynchronously from a stream.
+            </summary>
+            <param name="stream">The stream containing the SSE data.</param>
+            <param name="parser">The function to parse each <see cref="T:Microsoft.SemanticKernel.Text.SseLine"/> into an <see cref="T:Microsoft.SemanticKernel.Text.SseData"/> object.</param>
+            <param name="cancellationToken">A cancellation token to stop the parsing process.</param>
+            <remarks><paramref name="stream"/> will be disposed immediately once enumeration is complete.</remarks>
+            <returns>An asynchronous enumerable sequence of <see cref="T:Microsoft.SemanticKernel.Text.SseData"/> objects.</returns>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.SseJsonParser.ParseAsync``1(System.IO.Stream,System.Threading.CancellationToken)">
+            <summary>
+            Parses Server-Sent Events (SSE) data asynchronously from a stream and deserializes the data into the specified type.
+            </summary>
+            <typeparam name="T">The type to deserialize the data into.</typeparam>
+            <param name="stream">The stream containing the SSE data.</param>
+            <param name="cancellationToken">A cancellation token to stop the parsing process.</param>
+            <returns>An asynchronous enumerable sequence of deserialized objects of type <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Text.SseLine">
+            <summary>
+            Represents a line of a Server-Sent Events (SSE) stream.
+            </summary>
+            <remarks>
+            <a href="https://html.spec.whatwg.org/multipage/server-sent-events.html#parsing-an-event-stream">SSE specification</a>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.SseLine.Empty">
+            <summary>
+            Represents an empty SSE line.
+            </summary>
+            <remarks>
+            The <see cref="P:Microsoft.SemanticKernel.Text.SseLine.Empty"/> property is a static instance of the <see cref="T:Microsoft.SemanticKernel.Text.SseLine"/> struct.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.SseLine.EventName">
+            <summary>
+            The name of the last event for the Server-Sent Events (SSE) line.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.SseLine.IsEmpty">
+            <summary>
+            Determines whether the SseLine is empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.SseLine.IsValueEmpty">
+            <summary>
+            Gets a value indicating whether the value of the SseLine is empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.SseLine.IsComment">
+            <summary>
+            Determines whether the SseLine is comment line.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.SseLine.FieldName">
+            <summary>
+            Represents a field name in a Server-Sent Events (SSE) line.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.Text.SseLine.FieldValue">
+            <summary>
+            Represents a field value in Server-Sent Events (SSE) format.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.SseLine.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.SseLine.Equals(Microsoft.SemanticKernel.Text.SseLine)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.SseLine.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.SseLine.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.SseLine.op_Equality(Microsoft.SemanticKernel.Text.SseLine,Microsoft.SemanticKernel.Text.SseLine)">
+            <summary>
+            Defines the equality operator for comparing two instances of the SseLine class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.SseLine.op_Inequality(Microsoft.SemanticKernel.Text.SseLine,Microsoft.SemanticKernel.Text.SseLine)">
+            <summary>
+            Represents the inequality operator for comparing two SseLine objects.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Text.SseReader">
+            <summary>
+            Provides a reader for Server-Sent Events (SSE) data.
+            </summary>
+            <remarks>
+            <a href="https://html.spec.whatwg.org/multipage/server-sent-events.html#parsing-an-event-stream">SSE specification</a>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.SseReader.#ctor(System.IO.Stream)">
+            <summary>
+            Provides a reader for Server-Sent Events (SSE) data.
+            </summary>
+            <remarks>
+            <a href="https://html.spec.whatwg.org/multipage/server-sent-events.html#parsing-an-event-stream">SSE specification</a>
+            </remarks>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.Text.StreamJsonParser">
+            <summary>
+            Internal class for parsing a stream of text which contains a series of discrete JSON strings into en enumerable containing each separate JSON string.
+            </summary>
+            <remarks>
+            This is universal parser for parsing stream of text which contains a series of discrete JSON.<br/>
+            If you need a specialized SSE parser, use <see cref="T:Microsoft.SemanticKernel.Text.SseJsonParser"/> instead.<br/>
+            This class is thread-safe.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.Text.StreamJsonParser.ParseAsync(System.IO.Stream,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Parses a Stream containing JSON data and yields the individual JSON objects.
+            </summary>
+            <param name="stream">The Stream containing the JSON data.</param>
+            <param name="validateJson">Set to true to enable checking json chunks are well-formed. Default is false.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>An enumerable collection of string representing the individual JSON objects.</returns>
+            <remarks>Stream will be disposed after parsing.</remarks>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.KernelProcessAgentExecutorInternal">
+            <summary>
+            Represents a step in a process that executes an agent.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.KernelProcessAgentExecutorInternal.#ctor(Microsoft.SemanticKernel.KernelProcessAgentStep,Microsoft.SemanticKernel.KernelProcessAgentThread,Microsoft.SemanticKernel.ProcessStateManager)">
+            <summary>
+            Constructor used by parent process passing specific agent factory
+            </summary>
+            <param name="agentStep"></param>
+            <param name="processThread"></param>
+            <param name="stateManager"></param>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.KernelProcessAgentExecutorInternal.ActivateAsync(Microsoft.SemanticKernel.KernelProcessStepState{Microsoft.SemanticKernel.KernelProcessAgentExecutorState})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.SemanticKernel.KernelProcessAgentExecutorInternal.InvokeAsync(Microsoft.SemanticKernel.Kernel,System.Object,System.Boolean)">
+            <summary>
+            Invokes the agent with the provided definition.
+            </summary>
+            <param name="kernel">instance of <see cref="T:Microsoft.SemanticKernel.Kernel"/></param>
+            <param name="message">incoming message to be processed by agent</param>
+            <param name="writtenToThread"> <see langword="true"/> if the message has already been written to the thread</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.KernelProcessAgentExecutorState">
+            <summary>
+            State used by <see cref="T:Microsoft.SemanticKernel.KernelProcessAgentExecutor"/> to persist agent and thread details
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.KernelProcessAgentExecutorState.AgentId">
+            <summary>
+            Id of agent so it is reused if the same process is invoked again
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.KernelProcessAgentExecutorState.ThreadId">
+            <summary>
+            Thread related information used for checking thread details by the specific agent
+            </summary>
+        </member>
+        <member name="T:Microsoft.SemanticKernel.AgentInvokeOutputWrapper">
+            <summary>
+            Output wrapper for agent invocation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.AgentInvokeOutputWrapper.MessagesOut">
+            <summary>
+            Collection of output messages produced by agent.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SemanticKernel.AgentInvokeOutputWrapper.Events">
+            <summary>
+            Collection of events produced by agent.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.VectorData.VectorStoreErrorHandler">
+            <summary>
+            Contains helpers for reading vector store model properties and their attributes.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.EmptyKeyedServiceProvider">
+            <summary>Provides an implementation of <see cref="T:Microsoft.Extensions.DependencyInjection.IKeyedServiceProvider"/> that contains no services.</summary>
+        </member>
+        <member name="P:Microsoft.Extensions.DependencyInjection.EmptyKeyedServiceProvider.Instance">
+            <summary>Gets a singleton instance of <see cref="T:Microsoft.Extensions.DependencyInjection.EmptyKeyedServiceProvider"/>.</summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.EmptyKeyedServiceProvider.GetService(System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.EmptyKeyedServiceProvider.GetKeyedService(System.Type,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.EmptyKeyedServiceProvider.GetRequiredKeyedService(System.Type,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:System.ExceptionExtensions">
+            <summary>
+            Exception extension methods.
+            </summary>
+        </member>
+        <member name="M:System.ExceptionExtensions.IsCriticalException(System.Exception)">
+            <summary>
+            Check if an exception is of a type that should not be caught by the kernel.
+            </summary>
+            <param name="ex">Exception.</param>
+            <returns>True if <paramref name="ex"/> is a critical exception and should not be caught.</returns>
+        </member>
+        <member name="M:System.Linq.AsyncEnumerable.AnyAsync``1(System.Collections.Generic.IAsyncEnumerable{``0},System.Func{``0,System.Boolean},System.Threading.CancellationToken)">
+            <summary>
+            Determines whether any element of an async-enumerable sequence satisfies a condition.
+            </summary>
+            <typeparam name="TSource">The type of the elements in the source sequence.</typeparam>
+            <param name="source">An async-enumerable sequence whose elements to apply the predicate to.</param>
+            <param name="predicate">A function to test each element for a condition.</param>
+            <param name="cancellationToken">The optional cancellation token to be used for cancelling the sequence at any time.</param>
+            <returns>An async-enumerable sequence containing a single element determining whether any elements in the source sequence pass the test in the specified predicate.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/> or <paramref name="predicate"/> is null.</exception>
+            <remarks>The return type of this operator differs from the corresponding operator on IEnumerable in order to retain asynchronous behavior.</remarks>
+        </member>
+        <member name="M:System.Linq.AsyncEnumerable.SelectAsync``2(System.Collections.Generic.IAsyncEnumerable{``0},System.Func{``0,``1},System.Threading.CancellationToken)">
+            <summary>
+            Projects each element of an <see cref="T:System.Collections.Generic.IAsyncEnumerable`1"/> into a new form by incorporating
+            an asynchronous transformation function.
+            </summary>
+            <typeparam name="TSource">The type of the elements of the source sequence.</typeparam>
+            <typeparam name="TResult">The type of the elements of the resulting sequence.</typeparam>
+            <param name="source">An <see cref="T:System.Collections.Generic.IAsyncEnumerable`1"/> to invoke a transform function on.</param>
+            <param name="selector">
+            A transform function to apply to each element. This function takes an element of
+            type TSource and returns an element of type TResult.
+            </param>
+            <param name="cancellationToken">
+            A CancellationToken to observe while iterating through the sequence.
+            </param>
+            <returns>
+            An <see cref="T:System.Collections.Generic.IAsyncEnumerable`1"/> whose elements are the result of invoking the transform
+            function on each element of the original sequence.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when the source or selector is null.</exception>
+        </member>
+        <member name="M:System.EnvExtensions.GetBoolEnvVar(System.String)">
+            <summary>
+            Source: https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/src/DiagnosticsOptions.cs
+            Values: https://learn.microsoft.com/en-us/dotnet/api/azure.core.diagnosticsoptions.istelemetryenabled?view=azure-dotnet
+            </summary>
+        </member>
+        <member name="T:System.TypeExtensions">
+            <summary>
+            Extensions methods for <see cref="T:System.Type"/>.
+            </summary>
+        </member>
+        <member name="M:System.TypeExtensions.TryGetGenericResultType(System.Type,System.Type@)">
+            <summary>
+            Tries to get the result type from a generic parameter.
+            </summary>
+            <param name="returnType">Return type.</param>
+            <param name="resultType">The result type of the Nullable generic parameter.</param>
+            <returns><c>true</c> if the result type was successfully retrieved; otherwise, <c>false</c>.</returns>
+            TODO [@teresaqhoang]: Issue #4202 Cache Generic Types Extraction - Handlebars
+        </member>
+        <member name="M:System.TypeExtensions.GetFriendlyTypeName(System.Type)">
+            <summary>
+            Returns a string with the type's name. If the type is generic, it also includes the type parameters in a readable format.
+            </summary>
+            <param name="type">Target type.</param>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.AsciiLettersDigitsUnderscoresRegex_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the AsciiLettersDigitsUnderscoresRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.AsciiLettersDigitsUnderscoresRegex_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.AsciiLettersDigitsUnderscoresRegex_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.AsciiLettersDigitsUnderscoresRegex_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.AsciiLettersDigitsUnderscoresRegex_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.AsciiLettersDigitsUnderscoresRegex_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.AsciiLettersDigitsUnderscoresRegex_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.AsciiLettersDigitsUnderscoresRegex_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.AsciiLettersDigitsUnderscoresRegex_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.FilenameRegex_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the FilenameRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.FilenameRegex_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.FilenameRegex_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.FilenameRegex_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.FilenameRegex_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.FilenameRegex_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.FilenameRegex_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.FilenameRegex_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.FilenameRegex_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiWordChars">
+            <summary>Supports searching for characters in or not in "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+    </members>
+</doc>
