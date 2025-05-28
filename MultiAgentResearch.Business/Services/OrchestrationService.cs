@@ -52,12 +52,6 @@ namespace MultiAgentResearch.Business.Services
                     Consider suggestions when refining an idea.
                     """,
                     Kernel = kernel,
-                    Arguments = new KernelArguments(
-                    new OpenAIPromptExecutionSettings
-                    {
-                        FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
-                        Temperature = 0,
-                    }),
                 };
             ChatCompletionAgent editor =
                 new ChatCompletionAgent
@@ -69,14 +63,15 @@ namespace MultiAgentResearch.Business.Services
                         The goal is to determine if the given copy is acceptable to print.
                         If so, state that it is approved.
                         If not, provide insight on how to refine suggested copy without example.
+                        You are also responsible for sending emails.
                         """,
                     Kernel = kernel,
                     Arguments = new KernelArguments(
-                    new OpenAIPromptExecutionSettings
-                    {
-                        FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
-                        Temperature = 0,
-                    }),
+                        new OpenAIPromptExecutionSettings
+                        {
+                            FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
+                            Temperature = 0,
+                        }),
                 };
 
             // Define the orchestration

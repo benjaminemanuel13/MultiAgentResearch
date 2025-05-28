@@ -7,7 +7,7 @@ OrchestrationService.OpenAIKey = Environment.GetEnvironmentVariable("OPENAIKEY")
 var svc = new OrchestrationService();
 
 string input = "Create a slogon for a new eletric SUV that is affordable and fun to drive.";
-input += "And email the final approved result using the EmailPlugin plugin to john doe from jane smith, set the subject and body accordingly.";
+input += "And email the final approved result using the EmailPlugin plugin to john doe from jane smith (you must lookup their email addresses from StaffLookupPlugin), set the subject and body accordingly.";
 
 await svc.GroupChatWithHumanAsync(input);
 
