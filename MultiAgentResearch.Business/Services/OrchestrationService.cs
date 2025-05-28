@@ -87,7 +87,6 @@ namespace MultiAgentResearch.Business.Services
             await runtime.StartAsync();
 
             // Run the orchestration
-            //string input = 
             Console.WriteLine($"\n# INPUT: {input}\n");
             OrchestrationResult<string> result = await orchestration.InvokeAsync(input, runtime);
             string text = await result.GetValueAsync(TimeSpan.FromSeconds(30));
@@ -99,7 +98,7 @@ namespace MultiAgentResearch.Business.Services
         ValueTask<ChatMessageContent> InteractiveCallback()
         {
             ChatMessageContent input = new(AuthorRole.User, "I like it");
-            //Console.WriteLine($"\n# INPUT: {input.Content}\n");
+            Console.WriteLine($"\n# INPUT: {input.Content}\n");
             return ValueTask.FromResult(input);
         }
 
