@@ -29,6 +29,8 @@ namespace MultiAgentResearch.Business.Services
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
 
+            var kernel = new Kernel(serviceProvider);
+
             var email = KernelPluginFactory.CreateFromType<EmailPlugin>();
             var lookup = KernelPluginFactory.CreateFromType<StaffLookupPlugin>();
 
@@ -36,7 +38,8 @@ namespace MultiAgentResearch.Business.Services
             plugins.Add(email);
             plugins.Add(lookup);
 
-            var kernel = new Kernel(serviceProvider, plugins);
+            var editorkernel = kernel.Clone();
+            editorkernel.Plugins.AddRange(plugins);
 
             ChatCompletionAgent writer =
                 new ChatCompletionAgent
@@ -63,9 +66,9 @@ namespace MultiAgentResearch.Business.Services
                         The goal is to determine if the given copy is acceptable to print.
                         If so, state that it is approved.
                         If not, provide insight on how to refine suggested copy without example.
-                        You are also responsible for sending emails.
+                        If approved state "*** THIS IS APPROVED ***".
                         """,
-                    Kernel = kernel,
+                    Kernel = editorkernel,
                     Arguments = new KernelArguments(
                         new OpenAIPromptExecutionSettings
                         {
